@@ -1,0 +1,35 @@
+# This is an input class. Do not edit.
+class BST:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+def validateBst(tree):
+    # Write your code here
+	return validateBstHelper(tree,float('-inf'), float('inf'))
+	
+
+def validateBstHelper(tree,minimum, maximum):
+	if not tree:
+		return True
+	if tree.value< minimum or tree.value>=maximum:
+		return False
+	left= validateBstHelper(tree.left,minimum,tree.value)
+	return left and validateBstHelper(tree.right,tree.value, maximum)
+  
+  
+ Time complexity is O(n) and space complexity is O(n).
+ 
+ class BST(self):
+  def __init__(self, value):
+    self.value = value
+    self.left = None
+    self.right = None
+  
+  class TestProgram(unittest.TestCase):
+    def test_case_1(self):
+      root = BST(10)
+      root.left = BST(5)
+      root.left.left = BST(2)
