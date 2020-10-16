@@ -33,3 +33,7 @@ def validateBstHelper(tree,minimum, maximum):
       root = BST(10)
       root.left = BST(5)
       root.left.left = BST(2)
+      .
+      .
+      .
+      self.assertEqual(program.validateBst(root), True)
