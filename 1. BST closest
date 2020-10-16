@@ -1,0 +1,102 @@
+Function takes in binary search tree and target integer value and returns the closest value to that target value contained in the BST.
+
+1st Approach is recursive
+I need to keep the count of the abs difference of target and the value
+==> variable closest
+==> if (target - tree.val) < (target-closest):
+==> update closest
+==> then decide like on which side of tree i would iterate
+==> if target> tree.val:
+		self helper(tree.left, target, closest)
+	elif < tree.val:
+		self helper(tree.right, target, closest)
+	else:
+		return closest
+		
+Time complexity would be O(log n) and space complexity is O(log n) 
+
+class BST():
+  def __init__(self, val):
+    self.value = val
+    self.left = None
+    self.right = None
+  
+ 
+ def findClosestValueInBst(tree, val):
+   
+   return findClosestValueInBstHelper(tree, val, tree.val)
+   
+def findClosestValueInBstHelper(tree, target, closest):
+  # base case
+  if not tree:
+    return closest
+   
+  if (target - tree.val)< (target-closest):
+    closest = tree.val
+  if target< tree.val:
+    return findClosestValueInBstHelper(tree.left, target, closest)
+  
+  elif target> tree.val:
+    return findClosestValueInBstHelper(tree.right, target, closest)
+  
+  else:
+    return closest
+ 
+ ########### Iterative Solution ######################
+ 
+ 
+ def findClosestValueInBst(tree, target):
+    # Write your code here.
+	return findClosestValueInBstHelper(tree,target,tree.value)
+
+def findClosestValueInBstHelper(tree,target,closest):
+	
+	currentNode = tree
+	
+	while currentNode:
+		if abs(target - currentNode.value) < abs(target-closest):
+			closest = currentNode.value
+		if target > currentNode.value:
+			currentNode = currentNode.right
+		elif target < currentNode.value:
+			currentNode = currentNode.left
+		else:
+			break
+	return closest
+	
+
+
+# This is the class of the input tree. Do not edit.
+class BST:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+        
+Test Case
+
+import unittest
+import program 
+
+class BST:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+        
+class TestProgram( unittest.TestCase):
+  def test_case_1(self):
+      root = BST(10)
+      root.left = BST(5)
+      root.left.left = BST(2)
+      root.left.left.left = BST(1)
+      root.left.right = BST(5)
+      root.right = BST(15)
+      root.right.left = BST(13)
+      root.right.left.right = BST(14)
+      root.right.right = BST(22)
+      epected = 13
+      actual = program.findClosestValueInBst(root,12)
+      self.assertEqual(expected, value)
+      
+
