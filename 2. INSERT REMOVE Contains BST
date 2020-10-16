@@ -1,0 +1,108 @@
+Insertion of new Node
+Searching and deleting the ndoe
+
+deletion is the hardest because of the edge cases it has
+
+                              10                                Inserting 12 we no need to see the left subtree, go further down 15> 12 no need to check 
+                           /     \                              right side of 15 and left of 13 is null insert the node here as it < then 13
+                          5       15
+                        /  \     /   \                          Searching is again same go to right since its > 10 and 15> 12 thus eliminate right sub tree
+                       2    5    13  22                         
+                      /         /   \
+                     1         12    14                          Deletion remove 1 1st search and then we need to do just set left chind of 2 = null 
+                                                                 if need to remove 2, replace with child
+                                                                 remove 10 -> grab smallest value in right subtree of that node and replace it will that 
+                                                                 in this case its 12 and set null for the posution of 12
+                                                                 
+                                                                 Avg case : O(log (n)) for all three cases coz we didn't traverse the entire tree we just did half
+                                                                 space: O(log(n)) call stack in case of recursive
+                                                                 time O(n) -> worst case and space as well
+                                                                 
+                                                                 if done interatively then the space complexity is O(1)
+     
+     Iterative coz of space complexity:
+     
+                                            
+   # Do not edit the class below except for
+# the insert, contains, and remove methods.
+# Feel free to add new properties and methods
+# to the class.
+class BST:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+			currentNode = self
+			while True:
+				if value< currentNode.value:
+					if not currentNode.left:
+						currentNode.left= BST(value)
+						break
+					else:
+						currentNode = currentNode.left
+				else:
+					if not currentNode.right:
+						currentNode.right= BST(value)
+						break
+					else:
+						currentNode = currentNode.right
+				return self
+
+    def contains(self, value):
+        # Write your code here.
+			curentNode = self 
+			while currentNode:
+				if value < currentNode.value:
+					currentNode = currentNode.left
+				elif value > currentNode.value:
+					currentNode = currentNode.right
+				else:
+					return True
+			return False
+				
+    def remove(self, value, parentNode = None):
+        # Write your code here.
+        # Do not edit the return statement of this method.
+				currentNode = self
+				while currentNode:
+					if value < currentNode.value:
+						parentNode = currentNode
+						currentNode = currentNode.left
+					elif value > currentNode.value:
+						parentNode = currentNode
+						currentNode = currentNode.right
+					else:
+					# node with two children find smallest value in right of sub tree
+						if currentNode.left and currentNode.right:
+							currentNode.value = currentNode.right.getMinValue()
+							currentNode.right.remove(currentNode.value, currentNode)
+						elif parentNode is None:
+							if currentNode.left:
+								currentNode.value = currentNode.left.value
+								currentNode.left =currentNode.left.right
+								currentNode.right = currentNode.left.left
+							elif currentNode.right:
+								currentNode.value = currentNode.right.value
+								currentNode.left = currentNode.right.left
+								currentNode.right = currentNode.right.right
+							else:
+								currentNode.value = None
+						elif parentNode.left == currentNode:
+							parentNode.left = currentNode.left if currentNode.left else currentNode.right
+						elif parentNode.right == currentNode:
+							parentNode.right = currentNode.left if currentNode.left else currentNode.right
+						break
+					return self
+		
+		def getMinValue(self):
+			curNode = self
+			while curNode.left:
+				curNode = curNode.left
+
+			return curNode
+            
+                                            
+                                                                 
+                                                
