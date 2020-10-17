@@ -1,0 +1,11 @@
+def minHeightBst(array):
+    return minHeightBstHelper(array,0, len(array)-1)
+
+def minHeightBstHelper(array,startIndex, endIndex):
+	if endIndex< startIndex:
+		return None
+	midInd = (startIndex+endIndex)//2
+	bst = BST(array[midInd])
+	bst.left = minHeightBstHelper(array,startIndex,midInd-1)
+	bst.right = minHeightBstHelper(array,midInd+1, endIndex)
+	return bst
