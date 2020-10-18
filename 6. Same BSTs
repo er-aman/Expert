@@ -1,0 +1,31 @@
+def sameBsts(arrayOne, arrayTwo):
+    # Write your code here.
+	if len(arrayOne)!= len(arrayTwo):
+		return False
+	
+	if len(arrayOne)==0 and len(arrayTwo)==0:
+		return True
+	if arrayOne[0] != arrayTwo[0]:
+		return False
+	leftOne = getMinimum(arrayOne)
+	leftTwo = getMinimum(arrayTwo)
+	rightOne = getMaximum(arrayOne)
+	rightTwo = getMaximum(arrayTwo)
+	
+	return sameBsts(leftOne, leftTwo) and sameBsts(rightOne, rightTwo)
+	
+def getMinimum(array):
+	smaller=[]
+	for i in range(1,len(array)):
+		if array[i]<array[0]:
+			smaller.append(array[i])
+	return smaller
+
+def getMaximum(array):
+	larger=[]
+	for i in range(1,len(array)):
+		if array[i]>=array[0]:
+			larger.append(array[i])
+	return larger
+	
+  Time and space O(n^2)
