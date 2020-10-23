@@ -1,0 +1,18 @@
+import collections
+class Solution:
+    def leastBricks(self, wall: List[List[int]]) -> int:
+        lookup = collections.defaultdict(int)
+        for w in wall:
+            total=0
+            for i in range(len(w)-1):
+                total+=w[i]
+                if lookup[total]:
+                    lookup[total]+=1
+                else:
+                    lookup[total]=1
+        res = len(wall)
+        for k in lookup.keys():
+            res = min(res, len(wall)-lookup[k])
+        return res
+        
+Time complexity is O(n) space is O(m)
