@@ -1,0 +1,26 @@
+import collections 
+class Solution:
+    def rotateString(self, A: str, B: str) -> bool:
+        stack1 = collections.deque()
+        stack2 = collections.deque()
+        l1 = len(A)
+        l2 = len(B)
+        
+        if l1==0 and l2==0:
+            return True
+        if l1!=l2:
+            return False
+        
+        for i in A:
+            stack1.append(i)
+        
+        for j in B:
+            stack2.append(j)
+            
+        for i in range(l1):
+            if stack1==stack2:
+                return True
+            char = stack1.popleft()
+            stack1.append(char)
+        return False
+        
