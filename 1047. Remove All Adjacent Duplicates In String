@@ -1,0 +1,9 @@
+class Solution:
+    def removeDuplicates(self, S: str) -> str:
+        output=[]
+        for i in S:
+            if output and output[-1]==i:
+                output.pop()
+            else:
+                output.append(i)
+        return ''.join(output)
