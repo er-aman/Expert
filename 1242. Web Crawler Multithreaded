@@ -1,0 +1,40 @@
+# """
+# This is HtmlParser's API interface.
+# You should not implement it, or speculate about its implementation
+# """
+#class HtmlParser(object):
+#    def getUrls(self, url):
+#        """
+#        :type url: str
+#        :rtype List[str]
+#        """
+
+#  getHostName(starturl) function to return hostname
+#  I have to keep the track of urls that are visited => set()
+#  add starturl to set
+#  queue=[straturl] => apply while len(queue)>0 
+
+import concurrent.futures
+class Solution:
+    def getHostName(self,url):
+        urlSplit  =  url.split('/')
+        return urlSplit[2]
+    def crawl(self, startUrl: str, htmlParser: 'HtmlParser') -> List[str]:
+        urlSet = set()
+        urlSet.add(startUrl)
+        hostName = self.getHostName(startUrl)
+        queue = [startUrl]
+        while len(queue)>0:
+            queue2=[]
+            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as future:
+                l = list(future.map(lambda url : htmlParser.getUrls(url), queue))
+                for urls in l:
+                    for url in urls:
+                        if url in urlSet or self.getHostName(url)!=hostName:
+                            continue
+                        
+                        urlSet.add(url)
+                        queue2.append(url)
+            queue = queue2
+        
+        return list(urlSet)
