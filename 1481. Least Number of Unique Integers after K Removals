@@ -1,0 +1,13 @@
+import heapq
+class Solution:
+    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
+        lookup = collections.Counter(arr)
+        heap = [(val,k) for k,val in lookup.items()]
+        heapq.heapify(heap)
+        
+        for _ in range(k):
+            cnt,val = heapq.heappop(heap)
+            cnt-=1
+            if cnt>0:
+                heapq.heappush(heap,(cnt,val))
+        return len(heap)
