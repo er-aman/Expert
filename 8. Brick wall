@@ -1,18 +1,37 @@
+# bricks and walls
+# time complexity is O(n) and space O(m) m being width of wall.
 import collections
-class Solution:
-    def leastBricks(self, wall: List[List[int]]) -> int:
-        lookup = collections.defaultdict(int)
-        for w in wall:
-            total=0
-            for i in range(len(w)-1):
-                total+=w[i]
-                if lookup[total]:
-                    lookup[total]+=1
-                else:
-                    lookup[total]=1
-        res = len(wall)
-        for k in lookup.keys():
-            res = min(res, len(wall)-lookup[k])
-        return res
-        
-Time complexity is O(n) space is O(m)
+import unittest
+def getMinimumBricks(walls):
+  if not walls:
+    return 0
+  lookup = collections.defaultdict(int)
+  
+  for wall in walls:
+    total=0
+    for bricks in range(len(wall)-1):
+      total+=wall[bricks]
+      if total in lookup:
+        lookup[total]+=1
+      else:
+        lookup[total]=1
+  res =len(walls)
+  for key in lookup.keys():
+    res = min(res,len(walls)- lookup[key])
+  return res
+  
+class Test(unittest.TestCase):
+  def test_no_wall(self):
+    actual = getMinimumBricks([])
+    expected =0
+    self.assertEqual(actual,expected)
+  def test_with_wall(self):
+    actual = getMinimumBricks([[1,2,2,1],
+        [3,1,2],
+        [1,3,2],
+        [2,4],
+        [3,1,2],
+        [1,3,1,1]])
+    expected = 2
+    self.assertEqual(actual,expected)
+unittest.main(verbosity=2)
