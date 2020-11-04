@@ -1,0 +1,36 @@
+This is the print version count version you can figure out.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        res=[]
+        path=[]
+        def addToRes(path,i):
+            temp=[]
+            for j in range(i,len(path)):
+                temp.append(path[j])
+            res.append(temp)
+        
+        def preorder(root,path,k):
+            
+            if not root:
+                return
+            
+            path.append(root.val)
+            preorder(root.left,path,k)
+            preorder(root.right,path,k)
+            
+            f = 0 
+            for i in range(len(path)-1,-1,-1):
+                f+=path[i]
+                if f==k:
+                    addToRes(path,i)
+                
+            path.pop(-1)
+        preorder(root,path,sum)
+        return len(res)
