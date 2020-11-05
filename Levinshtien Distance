@@ -1,0 +1,41 @@
+
+Given two string determine number of operations to be perfomed for converting the string1 into string2.
+
+string 1 = "abc" string2= "yabd" 
+
+consider it as a matrix with first col and firsr row as empty string
+
+=> for the first col we just need to make the insertion "" = "" so 0 y=>1, a=>2 and so on 
+=> for first col we need to ""="", a=> one insertion b=> one removal, one insertion and so on
+
+     " "  y a b d
+" "  0   1  2 3 4
+a    1   1  1 
+b    2
+c    3
+
+
+formula if str1[r-1]==str2[c-1] then matrix[r][c] = matrix[r-1][c-1] else matrix[r][c] = 1+ min (matrix[r-1][c], matrix[r][c-1], matrix[r-1][c-1])
+
+space = O(mn) and time is O(mn) m is length of string 1 and n is another string
+
+
+
+def levenshteinDistance(str1, str2):
+	if len(str1)>len(str2):
+		str1,str2 = str2,str1
+	n = len(str1)+1 
+	m= len(str2) +1
+	
+	matrix  = [[0]*m for _ in range(n)]
+	for i in range(1,m):
+		matrix[0][i] = 1+ matrix[0][i-1]
+	for i in range(1,n):
+		matrix[i][0] = 1+ matrix[0][i-1]
+	for i in range(1,n):
+		for j in range(1,m):
+			if str1[i-1] == str2[j-1]:
+				matrix[i][j] = matrix[i-1][j-1]
+			else:
+				matrix[i][j] = 1+ min (matrix[i][j-1], matrix[i-1][j], matrix[i-1][j-1])
+	return matrix[-1][-1]
