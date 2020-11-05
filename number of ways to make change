@@ -1,0 +1,46 @@
+number of ways to make change
+
+n=6 and denom [1,5] we can make 6 by using one 1 coin and one 5 coin or five 1 coins + one 1 coin 
+
+we can keep a array till target amount say we have 10 dollars, we can make 
+
+ways  1
+arr = 0,1,2,3,4,5,6,7,8,9,10 base case is that we can make 0 amount by just one way that is not to 
+use any coin 
+
+and otherwise if we have coin denom [1,5,10,25]
+then we chose 1 first and check if 1<= currency in arr then we have ways[target amnt]+=ways[target amount - coin denom]
+ways[1] = ways[1]+ ways[1-1]
+
+ways  1 1 1 1 1 1 1 1 1 1 1
+arr = 0,1,2,3,4,5,6,7,8,9,10
+
+checking for 5 is 5<=0, 5<=1, 5<=3?
+ways  1 1 1 1 1 1 1 1 1 1 1
+arr = 0,1,2,3,4,5,6,7,8,9,10
+
+5<=5?
+ways  1 1 1 1 1 2 2 2 2 2 3
+arr = 0,1,2,3,4,5,6,7,8,9,10
+
+ways[5] = ways[5] + ways[5-5] ==>2 
+
+if denom <=amount :
+  ways[amount] += ways[amount - denom]
+  
+ways  1 1 1 1 1 2 2 2 2 2 4
+arr = 0,1,2,3,4,5,6,7,8,9,10
+
+def numberOfWaysToMakeChange(n, denoms):
+  ways= [0 for i in range(n+1)]
+	ways[0]=1
+	target = [i for i in range(n+1)]
+	
+	for i in denoms:
+		for j in target:
+			if i<=j:
+				ways[j]+=ways[j-i]
+	return ways[-1]
+
+Time complexity is O(nd) and o(n) space 
+
