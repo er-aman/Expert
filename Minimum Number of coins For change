@@ -1,0 +1,33 @@
+we have 6 dollars and want minium number of coins in change to convert to 6 
+$6=> denom [1,2,4] and 2+4 = 6 thus need just 2 coins
+Build solution by solving the smaller solution 
+
+                                 0 1 2 3 4 5 6  this is for 1 dollar denom 
+min coins we need to make chage  _ _ _ _ _ _ _
+                                 0 1 2 3 4 5 6
+
+
+                                 0 1 1 2 2 3 3  this is for 2 dollar denom 
+min coins we need to make chage  _ _ _ _ _ _ _
+                                 0 1 2 3 4 5 6
+                                 
+
+                                 0 1 1 2 1 2 2  this is for 4 dollar denom 
+min coins we need to make chage  _ _ _ _ _ _ _
+                                 0 1 2 3 4 5 6
+                                 
+                                 
+                                 
+Space is O(m) Time complexity is O(nd) where d is no. of denominations
+
+def minNumberOfCoinsForChange(n, denoms):
+    # Write your code here
+	ways=[ float('inf') for _ in range(n+1)]
+	ways[0]= 0 
+	target = [i for i in range(n+1)]
+	
+	for i in denoms:
+		for j in target:
+			if i<=j:
+				ways[j] = min( ways[j],1+ways[j-i])
+	return ways[-1] if ways[-1] !=  float('inf') else -1
