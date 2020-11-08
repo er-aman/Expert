@@ -1,0 +1,25 @@
+O(n) Time and Space is O(n)
+
+class Solution:
+    def calPoints(self, ops: List[str]) -> int:
+        res =[]
+        
+        for op in ops:
+            if op=="C":
+                if res: 
+                    res.pop()
+            elif op =="D":
+                temp = res[-1]*2
+                res.append(temp)
+            elif op =="+":
+                r= res[-1] if len(res)>=1 else 0
+                l= res[-2] if len(res)>=2 else 0
+                res.append(l+r)
+            else:
+                res.append(int(op))
+        total=0 
+        for i in res:
+            total+=i
+        return total
+                
+            
