@@ -1,0 +1,28 @@
+Smallest Difference between pair of numbers closest to zero 
+
+
+def smallestDifference(arrayOne, arrayTwo):
+	arrayOne.sort()
+	arrayTwo.sort()
+	smallest = float('inf')
+	smallestPair=[]
+	current = float('inf')
+	p1=0
+	p2=0
+	while p1<len(arrayOne) and p2<len(arrayTwo):
+		firstNum= arrayOne[p1]
+		secondNum = arrayTwo[p2]
+		
+		if firstNum<secondNum:
+			current = secondNum - firstNum
+			p1+=1
+		elif secondNum<firstNum:
+			current = firstNum - secondNum
+			p2+=1
+		else:
+			return [firstNum, secondNum]
+		
+		if smallest>current:
+			smallest = current
+			smallestPair = [firstNum, secondNum]
+	return smallestPair
