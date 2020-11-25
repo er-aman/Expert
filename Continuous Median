@@ -1,0 +1,26 @@
+O(log n) and O(n)
+from heapq import heappushpop, heappush, heappop
+class ContinuousMedianHandler:
+    def __init__(self):
+        # Write your code here.
+        self.median = None
+		self.smaller = [] # max heap (-num)
+		self.larger = [] # min heap (num)
+
+    def insert(self, number):
+        # Write your code here.
+		val = heappushpop(self.smaller,-number)
+		heappush(self.larger,-val)
+		if len(self.smaller) < len(self.larger):
+			val = heappop(self.larger)
+			heappush(self.smaller,-val)
+        
+		# update median
+		if len(self.smaller) == len(self.larger):
+			l,r = -self.smaller[0],self.larger[0]
+			self.median = (l+r)/2
+		else:
+			self.median = -self.smaller[0]
+
+    def getMedian(self):
+        return self.median
