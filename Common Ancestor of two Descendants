@@ -1,0 +1,33 @@
+# This is an input class. Do not edit.
+class AncestralTree:
+    def __init__(self, name):
+        self.name = name
+        self.ancestor = None
+
+
+def getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo):
+    # Write your code here.
+    descendantOneDepth = getDepth(topAncestor, descendantOne)
+	descendantTwoDepth = getDepth(topAncestor, descendantTwo)
+	if descendantOneDepth> descendantTwoDepth:
+		return getAncestor(descendantOne, descendantTwo, descendantOneDepth-descendantTwoDepth)
+	else:
+		return getAncestor(descendantTwo, descendantOne, descendantTwoDepth-descendantOneDepth)
+	
+
+
+def getAncestor(descendantTwo, descendantOne, diff):
+	while diff>0:
+		descendantTwo= descendantTwo.ancestor
+		diff-=1
+	while descendantTwo!= descendantOne:
+		descendantOne = descendantOne.ancestor
+		descendantTwo = descendantTwo.ancestor
+	return descendantTwo
+
+def getDepth(topAncestor, descendantOne):
+	depth=0
+	while descendantOne != topAncestor:
+		depth+=1
+		descendantOne= descendantOne.ancestor
+	return depth 
