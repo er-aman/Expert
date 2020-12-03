@@ -1,0 +1,13 @@
+import collections
+def groupAnagrams(words):
+	lookup = collections.defaultdict(list)
+	for word in words:
+		temp = "".join(sorted(word))
+		if temp in lookup:
+			lookup[temp].append(word)
+		else:
+			lookup[temp]=[word]
+	res=[]
+	for key in lookup.keys():
+		res.append(lookup[key])
+	return res
