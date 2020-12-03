@@ -1,0 +1,14 @@
+String is given = xyz, a key is given say 2 now return a new string obtained by shifting every letter in the input string by k positions in the albhabet.
+
+output is abc
+
+def caesarCipherEncryptor(string, key):
+	res =''
+	key%=26
+	for i in string:
+		new_chr = ord(i)+key
+		if new_chr<=122:
+			res+=chr(new_chr)
+		else:
+			res+=chr(96+new_chr%122)
+	return res 
