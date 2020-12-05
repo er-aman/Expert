@@ -1,0 +1,8 @@
+def kadanesAlgorithm(array):
+	cur_max = array[0]
+	total_max = array[0]
+	
+	for i in range(1,len(array)):
+		cur_max = max(cur_max+array[i], array[i])
+		total_max = max(total_max,cur_max)
+	return total_max
