@@ -1,0 +1,7 @@
+def powerset(array):
+	pow_set =[[]]
+	for el in array:
+		for i in range(len(pow_set)):
+			cur= pow_set[i]
+			pow_set.append(cur+[el])
+	return pow_set
