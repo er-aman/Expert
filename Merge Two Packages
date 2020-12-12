@@ -19,3 +19,16 @@ Constraints:
 [input] integer limit
 
 [output] array.integer
+
+
+
+def get_indices_of_item_wights(arr, limit):
+  #lookup = {val:index for index,val in enumerate(arr)}
+  lookup={}
+  for wt in range(len(arr)):
+    temp = limit - arr[wt]
+    if temp in lookup:
+      return [wt,lookup[temp]]
+    else:
+      lookup[arr[wt]]= wt
+  return []
