@@ -1,0 +1,45 @@
+def getmissing(arr):
+  total=0
+  array=0 
+  
+  for i in range(1,len(arr)+2):
+    total^=i
+  for i in arr:
+    array^=i
+  return total^array
+
+print(getmissing([1,2,4,5]))
+
+
+
+def getTwomissing(arr):
+  size=len(arr)+2
+  total_sum=size*(size+1)/2
+  array_sum=0 
+  
+  for i in arr:
+    array_sum+=i
+  reqSum = total_sum - array_sum
+  half = int(reqSum//2)
+  first_half=0 
+  second_half=0
+  for i in range(1,half+1):
+    first_half^=i
+  
+  for i in arr:
+    if i<=half:
+      second_half^=i
+  first_miss = first_half^second_half
+  
+  first_half=0 
+  second_half=0
+  for i in range(half+1,size+1):
+    first_half^=i
+  
+  for i in arr:
+    if i>half:
+      second_half^=i
+  second_miss = first_half^second_half
+  return (first_miss,second_miss)
+
+print(getTwomissing([1,2,5,6]))
