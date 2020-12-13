@@ -1,0 +1,27 @@
+def shiftLinkedList(head, k):
+    # Write your code here.
+	totallength = 1
+	listTail = head
+	while listTail.next is not None:
+		totallength+=1
+		listTail = listTail.next
+	
+	offset = abs(k) % totallength
+	if offset ==0:
+		return head
+	newTailPos = totallength - offset if k>0 else offset
+	newTail = head 
+	for i in range(1,newTailPos):
+		newTail = newTail.next
+	newHead= newTail.next
+	newTail.next = None
+	listTail.next = head
+	return newHead
+	
+
+
+# This is the class of the input linked list.
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
