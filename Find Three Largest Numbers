@@ -1,0 +1,14 @@
+def findThreeLargestNumbers(array):
+    # Write your code here.
+	max_array=[float('-inf'),float('-inf'),float('-inf')]									 
+	for i in range(len(array)):
+		if max_array[2]==float('-inf') or array[i]>max_array[2]:
+			max_array[0] = max_array[1]
+			max_array[1]=max_array[2]
+			max_array[2] = array[i]
+		elif max_array[1]==float('-inf') or array[i]>max_array[1]:
+			max_array[0] = max_array[1]
+			max_array[1]= array[i]
+		elif max_array[0]==float('-inf') or array[i]>max_array[0]:
+			max_array[0]= array[i]
+	return max_array
