@@ -1,0 +1,13 @@
+def getMinAlternate(s):
+  return min(getMin(s,0),getMin(s,1))
+def flip(num):
+  return 0 if num==1 else 1
+  
+def getMin(nums,expected):
+  count=0 
+  for  i in range(len(nums)):
+    if nums[i]!=expected:
+      count+=1
+    expected=flip(expected)
+  return count
+print(getMinAlternate([0,1,0]))
