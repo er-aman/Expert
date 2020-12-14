@@ -1,0 +1,28 @@
+def riverSizes(matrix):
+    # Write your code here.
+	res=[]
+	visited=[[False for val in row] for row in matrix]
+	for i in range(len(matrix)):
+		for j in range(len(matrix[0])):
+			if visited[i][j]:
+				continue
+			dfs_helper(matrix,i,j,visited,res)
+	return res
+
+def dfs_helper(matrix,i,j,visited,res):
+	count=0 
+	stack =[(i,j)]
+	directions=[(-1,0),(0,-1),(1,0),(0,1)]
+	while len(stack):
+		cur_row,cur_col = stack.pop()
+		if not(0<=cur_row<len(matrix) and 0<=cur_col<len(matrix[0])) or visited[cur_row][cur_col]==True:
+			continue
+		visited[cur_row][cur_col]= True
+		if matrix[cur_row][cur_col]==0:
+			continue
+		count+=1
+		for m,n in directions:
+			stack.append((cur_row+m, cur_col+n))
+	if count>0:
+		res.append(count)
+		
