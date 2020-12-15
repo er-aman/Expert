@@ -1,0 +1,27 @@
+# This is an input class. Do not edit.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def binaryTreeDiameter(tree):
+    # Write your code here
+	return getTreeInfo(tree).diameter
+
+def getTreeInfo(tree):
+	if not tree:
+		return TreeInfo(0,0)
+	left = getTreeInfo(tree.left)
+	right= getTreeInfo(tree.right)
+	
+	longestPath = left.height + right.height
+	maxDiaSoFar = max(left.diameter,right.diameter)
+	curDia = max(longestPath,maxDiaSoFar)
+	curHeight = 1+ max(left.height,right.height)
+	return TreeInfo(curDia,curHeight)
+class TreeInfo:
+	def __init__(self,diameter,height):
+		self.diameter = diameter
+		self.height=height
