@@ -1,0 +1,22 @@
+making use of stack, O(n) time and space
+# This is an input class. Do not edit.
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def linkedListPalindrome(head):
+	stack=[]
+	cur= head
+	while cur is not None:
+		stack.append(cur.value)
+		cur = cur.next 
+	while head is not None:
+		if head.value != stack[-1]:
+			return False 
+		stack.pop()
+		head = head.next
+	return True
+ 
+ 
