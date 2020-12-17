@@ -1,0 +1,11 @@
+def selectionSort(array):
+    # Write your code here.
+    currentIndx=0 
+	while currentIndx < len(array)-1:
+		smallestIndx = currentIndx
+		for i in range(currentIndx,len(array)):
+			if array[smallestIndx]> array[i]:
+				smallestIndx=i
+		array[smallestIndx],array[currentIndx] = array[currentIndx],array[smallestIndx]
+		currentIndx+=1
+	return array
