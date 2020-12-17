@@ -18,5 +18,44 @@ def linkedListPalindrome(head):
 		stack.pop()
 		head = head.next
 	return True
+	
+	
+	
+	
+Solution with O(n) time and space is O(1)
+
+# This is an input class. Do not edit.
+class LinkedList:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def linkedListPalindrome(head):
+    # Write your code here.
+	fast,slow=head,head
+	while fast is not None and fast.next is not None:
+		slow = slow.next
+		fast = fast.next.next
+	headTwo = reverseLinkedList(slow)
+	headOne = head
+	while headTwo is not None:
+		if headOne.value != headTwo.value:
+			return False
+		headOne = headOne.next
+		headTwo = headTwo.next
+	return True
+def reverseLinkedList(slow):
+	prev = None
+	cur = slow
+	while cur is not None:
+		temp = cur.next
+		cur.next = prev
+		prev = cur
+		cur = temp
+	return prev
+	
+	
+
  
  
