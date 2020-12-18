@@ -1,0 +1,19 @@
+def fourNumberSum(array, targetSum):
+    # Write your code here.
+	lookup = {}
+	res=[]
+	for i in range(1,len(array)-1):
+		for j in range(i+1,len(array)):
+			temp = array[i]+ array[j]
+			diff = targetSum - temp
+			if diff in lookup:
+				for l in lookup[diff]:
+					res.append(l+[array[i],array[j]])
+		for m in range(0,i):
+			total = array[i]+ array[m]
+			if total not in lookup:
+				lookup[total] =[[array[m],array[i]]]
+			else:
+				lookup[total].append([array[m], array[i]])
+					
+	return res
