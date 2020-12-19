@@ -1,0 +1,26 @@
+
+O(n) time and O(1) space
+def subarraySort(array):
+    # Write your code here
+	minUnsorted = float('inf')
+	maxUnsorted = float('-inf')
+	for i in range(len(array)):
+		if not isSorted(i,array,array[i]):
+			minUnsorted = min(minUnsorted,array[i])
+			maxUnsorted = max(maxUnsorted,array[i])
+	if minUnsorted == float('inf'):
+		return [-1,-1]
+	firstIndex = 0
+	while minUnsorted>=array[firstIndex]:
+		firstIndex+=1
+	secondIndex = len(array)-1
+	while maxUnsorted<=array[secondIndex]:
+		secondIndex-=1
+	return [firstIndex,secondIndex]
+	
+def isSorted(i,array,num):
+	if i==0:
+		return num<=array[i+1]
+	if i ==len(array)-1:
+		return array[i-1]<=num
+	return num>=array[i-1] and num <=array[i+1]
