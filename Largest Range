@@ -1,0 +1,25 @@
+def largestRange(array):
+    # Write your code here.
+    largestrange=0
+	rangebracket=[]
+	lookup ={nums:True for nums in array}
+	for num in array:
+		if not lookup[num]:
+			continue
+		lookup[num]=False 
+		currentlength=1
+		left=num-1
+		right=num+1
+		
+		while left in lookup:
+			lookup[left]=False
+			currentlength+=1
+			left-=1
+		while right in lookup:
+			lookup[right]=False
+			currentlength+=1
+			right+=1
+		if currentlength>largestrange:
+			largestrange= currentlength
+			rangebracket=[left+1,right-1]
+	return rangebracket
