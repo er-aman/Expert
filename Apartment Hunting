@@ -1,0 +1,24 @@
+def apartmentHunting(blocks, reqs):
+    # Write your code here.
+	maxDistance = [float('-inf') for _ in range(len(blocks))]
+	for i in range(len(blocks)):
+		for req in reqs:
+			closestDistance = float('inf')
+			for j in range(len(blocks)):
+				if blocks[j][req]:
+					closestDistance = min(closestDistance,distance(i,j))
+			maxDistance[i]= max(maxDistance[i],closestDistance)
+	
+	return getMinIdx(maxDistance)
+
+def distance(a,b):
+	return abs(a-b)
+
+def getMinIdx(array):
+	minIdx=0
+	minVal=array[0]
+	for i in range(1,len(array)):
+		if array[i]<minVal:
+			minVal = array[i]
+			minIdx = i
+	return minIdx
