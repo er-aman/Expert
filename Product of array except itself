@@ -8,3 +8,17 @@ def arrayOfProducts(array):
 				temp*=array[j]
 		productArray[i]=temp
 	return productArray
+
+
+def arrayOfProducts(array):
+    # Write your code here.
+	product =[1 for _ in range(len(array))]
+	leftProduct =1 
+	for i in range(len(array)):
+		product[i]*= leftProduct
+		leftProduct*=array[i]
+	rightProduct=1
+	for i in reversed(range(len(array))):
+		product[i]*= rightProduct
+		rightProduct*=array[i]
+	return product
