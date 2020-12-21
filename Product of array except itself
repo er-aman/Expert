@@ -1,0 +1,10 @@
+def arrayOfProducts(array):
+    # Write your code here.
+	productArray = [1 for _ in range(len(array))]
+	for i in range(len(array)):
+		temp=1
+		for j in range(len(array)):
+			if i!=j:
+				temp*=array[j]
+		productArray[i]=temp
+	return productArray
