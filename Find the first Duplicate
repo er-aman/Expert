@@ -1,0 +1,9 @@
+def firstDuplicateValue(array):
+    # Write your code here.
+    for i in range(len(array)):
+		curNum= abs(array[i]) 
+		if array[curNum-1]<0:
+			return curNum
+		else:
+			array[curNum-1]*=(-1)
+	return -1
