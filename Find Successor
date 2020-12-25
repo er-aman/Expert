@@ -1,0 +1,66 @@
+"""
+The observation that is required to be made is 
+that if node has right subtree then the successor
+is in right subtree
+
+if node.right:
+	return getNodeLeft(node.right)
+return getParent(node)
+
+look if node has right subtree then just find the left most
+node out of it
+def
+"""
+
+# This is an input class. Do not edit.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None, parent=None):
+        self.value = value
+        self.left = left
+        self.right = right
+        self.parent = parent
+
+
+def findSuccessor(tree, node):
+    # Write your code here.
+	inorder = inOrder(tree)
+	for i in range(len(inorder)):
+		if inorder[i]==node and i != len(inorder)-1:
+			return inorder[i+1]
+    return None
+def inOrder(tree):
+	return inOrder(tree.left) + [tree] + inOrder(tree.right) if tree else []
+  
+  
+  
+O(n) and O(1)
+# This is an input class. Do not edit.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None, parent=None):
+        self.value = value
+        self.left = left
+        self.right = right
+        self.parent = parent
+
+
+def findSuccessor(tree, node):
+    # Write your code here
+	if node.right is not None:
+		return getLeftMost(node.right)
+	else:
+		return getParent(node)
+def getLeftMost(node):
+	curNode = node
+	while curNode.left is not None:
+		curNode = curNode.left
+	return curNode
+
+def getParent(node):
+	curNode = node
+	while curNode.parent is not None and curNode.parent.right == curNode:
+		curNode = curNode.parent
+	return curNode.parent
+  
+  
+  
+  
