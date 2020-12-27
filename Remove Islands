@@ -60,3 +60,68 @@ def findConnectedOnes(matrix,i,j,tempMatx):
 				stack.append((new_row,new_col))
 		
 		
+		
+		
+		
+		
+
+
+"""
+[ [1, 0, 0, 0, 0, 0],
+  [0, 1, 0, 1, 1, 1],
+  [0, 0, 1, 0, 1, 0],
+  [1, 1, 0, 0, 1, 0],
+  [1, 0, 1, 1, 0, 0],
+  [1, 0, 0, 0, 0, 1],
+]
+input = [   [f,f,f,f,f,f],
+			[f,f,f,f,f,f],
+			[f,f,f,f,f,f],
+			[f,f,f,f,f,f],
+			[f,f,f,f,f,f],
+			[f,f,f,f,f,f]
+        ]
+
+i need to check on the borders for 1 and if i find one,
+then do the dfs to mark all the ones connected with the border1
+as True and 
+once done interate again over the matrix to turn 1s into 0s
+"""
+
+
+def removeIslands(matrix):
+    # Write your code here	
+	for i in range(len(matrix)):
+		for j in range(len(matrix[i])):
+			borderRow = i==0 or i==len(matrix)-1
+			borderCol = j==0 or j==len(matrix[i])-1
+			isBorder = borderRow or borderCol
+			
+			if not isBorder:
+				continue 
+			if matrix[i][j]!=1:
+				continue 
+			
+			findConnectedOnes(matrix,i,j)
+	for i in range(len(matrix)):
+		for j in range(len(matrix[i])):
+			if matrix[i][j]==2:
+				matrix[i][j]=1
+			else:
+				matrix[i][j]=0
+	return matrix
+def findConnectedOnes(matrix,i,j):
+	directions=[(-1,0),(0,-1),(1,0),(0,1)]
+	stack =[(i,j)]
+	while len(stack)>0:
+		curPos = stack.pop()
+		curRow,curCol = curPos
+		matrix[curRow][curCol]=2
+		for m,n in directions:
+			new_row = curRow+m
+			new_col = curCol+n
+			
+			if (0<=new_row<len(matrix) and 0<=new_col<len(matrix[0])) and matrix[new_row][new_col]==1:
+				stack.append((new_row,new_col))
+		
+		
