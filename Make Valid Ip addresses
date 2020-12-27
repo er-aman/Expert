@@ -1,0 +1,36 @@
+"""
+"1921680"
+
+1.9.2.1680
+1.9.21.680
+1.9.216.80 v
+1.9.2618.0
+19.2.1.680
+19.2.16.80 v
+
+"""
+
+def validIPAddresses(string):
+    # Write your code here.
+	ipAdds =[]
+	for i in range(1,min(len(string),4)):
+		curtIPAddsParts=["","","",""]
+		curtIPAddsParts[0]= string[:i]
+		if not isValidPart(curtIPAddsParts[0]):
+			continue
+		for j in range(i+1,i+min(len(string)-i,4)):
+			curtIPAddsParts[1]= string[i:j]
+			if not isValidPart(curtIPAddsParts[1]):
+				continue
+			for k in range(j+1,j+min(len(string)-j,4)):
+				curtIPAddsParts[2]= string[j:k]
+				curtIPAddsParts[3]= string[k:]
+				if isValidPart(curtIPAddsParts[2]) and isValidPart(curtIPAddsParts[3]):
+					ipAdds.append(".".join(curtIPAddsParts))		
+	return ipAdds
+
+def isValidPart(string):
+	intStr = int(string)
+	if intStr > 255:
+		return False
+	return len(string)==len(str(intStr))
