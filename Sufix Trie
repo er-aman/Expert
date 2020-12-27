@@ -1,0 +1,32 @@
+# Do not edit the class below except for the
+# populateSuffixTrieFrom and contains methods.
+# Feel free to add new properties and methods
+# to the class.
+class SuffixTrie:
+    def __init__(self, string):
+        self.root = {}
+        self.endSymbol = "*"
+        self.populateSuffixTrieFrom(string)
+
+    def populateSuffixTrieFrom(self, string):
+        # Write your code here.
+		for i in range(len(string)):
+			self.insertString(i,string)
+	
+	def insertString(self,i,string):
+		trie = self.root
+		for j in range(i,len(string)):
+			temp=string[j]
+			if temp not in trie:
+				trie[temp]={}
+			trie=trie[temp]
+		trie[self.endSymbol]= True
+    def contains(self, string):
+        # Write your code here.
+        trie = self.root
+		for j in range(len(string)):
+			temp=string[j]
+			if temp not in trie:
+				return False
+			trie=trie[temp]
+		return self.endSymbol in trie
