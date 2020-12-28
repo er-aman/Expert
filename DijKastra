@@ -1,0 +1,50 @@
+"""
+[
+0 [1,7],
+1 [2,6],[3,20],[4,3],
+2 [3,14],
+3 [4,2],
+4 [],
+5 []
+]
+
+ 0 1  2  3  4  5  
+ 0 -  -  -  -  -  
+ 0 7  -  -  -  -  
+ 0 7 13  27 10 -  
+ 0 7 13  27 10 -  
+ 0 7 13  27 10 -   
+"""
+
+def dijkstrasAlgorithm(start, edges):
+    # Write your code here.
+    noOfVertices = len(edges)
+	distanceBetweenVertices=[float('inf') for _ in range(noOfVertices)]
+	distanceBetweenVertices[start]=0
+	visitedSet=set()
+	while len(visitedSet) != noOfVertices:
+		vertex, curMinDistance = getMinVertex(distanceBetweenVertices,visitedSet)
+		if curMinDistance == float('inf'):
+			break
+		visitedSet.add(vertex)
+		for edge in edges[vertex]:
+			destination, distanceToDestination = edge
+			if destination in visitedSet:
+				continue
+			newPathDist = curMinDistance+distanceToDestination
+			curDestDist = distanceBetweenVertices[destination]
+			if newPathDist<curDestDist:
+				distanceBetweenVertices[destination]= newPathDist
+	return list(map(lambda x: -1 if x==float('inf') else x, distanceBetweenVertices))		
+		
+def getMinVertex(distances,visited):
+	curMinDistance = float('inf')
+	vertex = None 
+	
+	for idx,val in enumerate(distances):
+		if idx in visited:
+			continue 
+		if val<=curMinDistance:
+			vertex = idx
+			curMinDistance = val
+	return vertex, curMinDistance
