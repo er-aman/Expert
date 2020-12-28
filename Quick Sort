@@ -1,0 +1,106 @@
+"""
+
+Quick sort alog
+[8,5,2,9,5,6,3]
+
+pick pivot value and iterate rest of array and sort,
+everyother number with respect to pivot,
+every number that is smaller than pivot move left of pivot
+greater to be on the right of pivot.
+
+[8,5,2,9,5,6,3] let's pick pivot let's say first value 8
+ p
+
+[8,5,2,9,5,6,3] move from 5  to 3 left pointer 5 and right pointer 3
+ p l         r
+ 
+ is left is > then pivot number and is right num < pivot number
+ then we swap them and we bring the pivot number in middle
+ 5<8  and 3 < 8 so we move left by 1
+[8,5,2,9,5,6,3]
+ p   l       r
+ 9>8 and 3<8 swap 9 and 3 
+[8,5,2,9,5,6,3]
+ p     l     r 
+ 3<=8 so increment left and 9>8 so move right by one
+[8,5,2,3,5,6,9]
+ p     l     r 
+
+[8,5,2,3,5,6,9]
+ p     l   r  
+3<= 8 and 6<=8 so move left by 1
+and we always want the right numbers to be greater
+than pivot so now l and r on same point 6 now again moving left
+we have to swap pivot with right pointer
+[8,5,2,3,5,6,9]
+ p       l r 
+ 
+[6,5,2,3,5,8,9]
+ p l     r
+5<=6 thus move left pointer
+[6,5,2,3,5,8,9]
+ p l     r 
+ same for other cases 2,3 
+[6,5,2,3,5,8,9]
+ p       r 
+           l
+ 
+ swap(p with right)
+[5,5,2,3,6,8,9]
+ p l   r 
+ 
+[3,5,2,5,6,8,9]
+ p l r 
+ 
+now 5 is not <=piviot and right is less than pivot then swap
+these two numbers
+
+[3,2,5,5,6,8,9]
+ p l r 
+ left<= pivot move ahead
+ right>= pivot which is in correct position
+ so move the right pointer left by one
+
+[3,2,5,5,6,8,9]
+ p r l 
+ 
+swap p with r and we have a sorted array
+
+Time worst is O(n^2) and best is o(nlog n) with space is O(log n)
+"""
+
+def quickSort(array):
+    # Write your code here.
+	quickSortHelper(array,0,len(array)-1)
+	return array 
+def quickSortHelper(array,start,end):
+	# base case if startIndx > endIndx then return
+	if start>end:
+		return 
+	pivot = start
+	left = start  + 1
+	right =end
+	while left<=right:
+		# condition for swapping if left number is greater than
+		# pivot and right number is less than pivot 
+		# then we swap them
+		if array[left]>array[pivot] and array[right]<array[pivot]:
+			swap(left,right,array)
+		#left is less than pivot then we just increment left
+		if array[left]<=array[pivot]:
+			left+=1
+		# we decremnt right pointer if it is greater than
+		# equal to pivot index
+		if array[right]>=array[pivot]:
+			right-=1
+	swap(pivot,right,array)
+	leftSubSmaller = right-1-start < end - right+1
+	if leftSubSmaller: 
+		quickSortHelper(array,start,right-1)
+		quickSortHelper(array,right+1,end)
+	else:
+		quickSortHelper(array,right+1,end)
+		quickSortHelper(array,start,right-1)
+def swap(left,right,array):
+	array[left],array[right] = array[right],array[left]
+			
