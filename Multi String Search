@@ -1,0 +1,32 @@
+def multiStringSearch(bigString, smallStrings):
+    # Write your code here.
+	trie = Trie()
+	for word in smallStrings:
+		trie.add(word)
+	containsString={}
+	for i in range(len(bigString)):
+		findSmallStrings(bigString,i,trie,containsString)
+	return [string in containsString for string in smallStrings]
+	
+	
+def findSmallStrings(bigString,start,trie,containsString):
+	curNode = trie.root
+	for i in range(start,len(bigString)):
+		if bigString[i] not in curNode:
+			break
+		curNode=curNode[bigString[i]]
+		if trie.endWord in curNode:
+			containsString[curNode[trie.endWord]]=True
+
+class Trie:
+	def __init__(self):
+		self.root ={}
+		self.endWord="*"
+	
+	def add(self,word):
+		trie =self.root
+		for char in word:
+			if char not in trie:
+				trie[char]={}
+			trie=trie[char]
+		trie[self.endWord]=word
