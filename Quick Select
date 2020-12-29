@@ -1,0 +1,61 @@
+"""
+kth smallest number or kth largest number
+in linear time, this can be done by using quick sort
+pivot is selected and numbers are sorted based on pivot.
+
+[8,5,2,9,7,6,3] k is 3
+ p l         r 
+
+loop till l<=r 
+if num[l]<=pivot increment left pointer
+if num[r]<pivot keep it over there only
+if num[r]>pivot r-=1
+if num[l]>pivot  and num[r]< num[pivot] swap left right nums
+once left pointer sarpasses right 
+then swap right and pivot
+now rather than doing quick sort on left and right sub array 
+we just check that the right
+[8,5,2,9,7,6,3] k is 3
+ p l         r 
+
+     *     
+ 0 1 2 3 4 5 6
+[6,5,2,3,7,8,9] k is 3
+ p l       r 
+ 
+we check if r is the 3rd smallest number index
+no, it should be * in our case then we know if r 
+is greater than the target index we can diregard 
+everything that comes after the right index.
+
+
+"""
+def quickselect(array, k):
+    # Write your code here.
+	position = k-1
+	return quickselectHelper(array,0,len(array)-1,position)
+
+def quickselectHelper(array,start,end,position):
+	while True:
+		if start>end:
+			raise Exception("Your algo should not arrive here")
+		pivot = start
+		left = start+1
+		right =end
+		while left<=right:
+			if array[pivot]<array[left] and array[pivot]>array[right]:
+				swap(array,left,right)
+			if array[left]<=array[pivot]:
+				left+=1
+			if array[right]>array[pivot]:
+				right-=1
+		swap(array,pivot,right)
+		if position == right:
+			return array[position]
+		if position<right:
+			end = right-1
+		else:
+			start = right+1
+def swap(array,i,j):
+	array[i],array[j]=array[j],array[i]
+	
