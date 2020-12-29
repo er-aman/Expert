@@ -1,0 +1,31 @@
+"""
+k=2, prics of different stocks on different days
+so amount of transactions are k, 
+buy at 5 and sell at 11 and buy at 3 and sell at 90 is the max
+profit build a table
+prices as cols and no. of transactions as rows
+
+   5 11 3 50 60 90 
+0  0  0 0 0  0  0 
+1  0  6 6 47 57 87
+2  0  6 6 53 63 93
+
+profit[row][col]=max(proft[row][col-1],
+prices[col]+max(-prices[x]+profit[row-1][x]))
+where x is 0<=x<col
+
+Time is O(nk) time
+space is O(nk) space 
+"""
+
+def maxProfitWithKTransactions(prices, k):
+    # Write your code here.
+    if not len(prices):
+		return 0 
+	profit=[[0 for d in prices] for _ in range(k+1)]
+	for t in range(1,k+1):
+		maxSoFar = float('-inf')
+		for d in range(1,len(prices)):
+			maxSoFar = max(maxSoFar,profit[t-1][d-1]- prices[d-1])
+			profit[t][d]= max(profit[t][d-1],maxSoFar+prices[d])
+	return profit[-1][-1]
