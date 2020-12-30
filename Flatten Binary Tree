@@ -1,0 +1,74 @@
+"""
+flatten binary tree is obtained by ordring the nodes
+left to right, inorder nodes, so if we have a bst then
+the nodes are in sorted order
+
+!) traverse inorder, store the nodes in an array
+2) iterate array, at every node we update teh left and 
+right pointers of the previous node, the next node and 
+the current node
+
+O(n) time, n is number of nodes
+o(n) space, additonal array of nodes
+"""
+
+# This is the class of the input root. Do not edit it.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def flattenBinaryTree(root):
+    # Write your code here.
+    inorder = getInorder(root)
+	for i in range(len(inorder)-1):
+		leftNode = inorder[i]
+		rightNode = inorder[i+1]
+		leftNode.right = rightNode
+		rightNode.left = leftNode
+	return inorder[0]
+
+def getInorder(root):
+	return getInorder(root.left)+[root] + getInorder(root.right) if root else []
+
+
+
+
+
+"""
+O(n) and O(d)
+"""
+
+# This is the class of the input root. Do not edit it.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def flattenBinaryTree(root):
+    # Write your code here.
+	left,_=flattenTree(root)
+	return left
+	
+def flattenTree(node):
+	if node.left is None:
+		leftMost = node
+	else:
+		leftSubLeftMost, leftSubRightMost = flattenTree(node.left)
+		connected(leftSubRightMost,node)
+		leftMost = leftSubLeftMost
+	if node.right is None:
+		rightMost = node
+	else:
+		rightSubLeftMost, rightSubRightMost = flattenTree(node.right)
+		connected(node,rightSubLeftMost)
+		rightMost = rightSubRightMost
+	return [leftMost,rightMost]
+
+def connected(left,right):
+	left.right = right
+	right.left = left
