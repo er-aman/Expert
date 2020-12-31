@@ -1,0 +1,36 @@
+"""
+      s 
+0 1 2 3 4 5 6 7 8 9 10 11  12 
+c l e m e n t i s a c   a   p
+
+clem 
+lookup ={c:0, l:1, e:, , m:3,  }
+start=0
+start = max(start,lastSeen[char]+1)
+start = max(0,2+1) = max(0,3)
+keep a set and iterate over the string and add
+char in set 
+if newChar in set:
+	continue
+else:
+	fianl_str += char
+
+return final_str
+
+Time is O(n)
+space is O min(n,a)
+"""
+def longestSubstringWithoutDuplication(string):
+    # Write your code her
+	lookup ={}
+	subStr =[0,1]
+	startIndx = 0 
+	for ind,char in enumerate(string):
+		if char in lookup:
+			startIndx = max(startIndx, lookup[char]+1)
+		if subStr[1]-subStr[0]<ind+1 - startIndx:
+			subStr=[startIndx,ind+1]
+		lookup[char]=ind
+	return string[subStr[0]:subStr[1]]
+		
+		
