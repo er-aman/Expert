@@ -1,0 +1,30 @@
+# This is the class of the input root. Do not edit it.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def rightSiblingTree(root):
+    # Write your code here.
+    rightSiblingTreeHelper(root,None,None)
+	return root
+
+def rightSiblingTreeHelper(node,parent,isLeft):
+	if not node:
+		return 
+	left,right = node.left, node.right
+	rightSiblingTreeHelper(left,node,True)
+	if not parent:
+		node.right=None
+	elif isLeft:
+		node.right = parent.right
+	else:
+		if not parent.right:
+			node.right = None 
+		else:
+			node.right = parent.right.left
+	rightSiblingTreeHelper(right,node,False)
+	
+	
