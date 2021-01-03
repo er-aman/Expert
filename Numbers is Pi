@@ -1,0 +1,31 @@
+"""
+pi = "314159"
+iterate over the pie 
+and get the prefixes  like 3 if this is in 
+pi then add a space, 
+
+minSpaces to keep the track
+to make the lookup efficient we need 
+a set for numbers
+
+"""
+
+
+def numbersInPi(pi, numbers):
+    # Write your code here.
+	numSet = set(numbers)
+    minSpaces = getMinSpaces(pi,numSet,{},0)
+	return -1 if minSpaces==float('inf') else minSpaces
+def getMinSpaces(string,numSet,cache,idx):
+	if idx == len(string):
+		return -1 
+	if idx in cache:
+		return cache[idx]
+	minSpaces = float('inf')
+	for i in range(idx,len(string)):
+		prefix = string[idx:i+1]
+		if prefix in numSet:
+			minSpaceSuffix = getMinSpaces(string,numSet,cache,i+1)
+			minSpaces = min(minSpaces,minSpaceSuffix+1)
+	cache[idx]=minSpaces
+	return cache[idx]
