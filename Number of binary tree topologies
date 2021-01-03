@@ -1,0 +1,36 @@
+"""
+n=0
+f(3)-> f(0)
+	   f(2)->f(0)
+             f(1)->f(0)
+			 	   f(0)
+				   
+time is O(n^2) and space is O(n)				   
+"""
+
+# def numberOfBinaryTreeTopologies(n,lookup={0:1}):
+#     # Write your code here.
+# 	if n in lookup:
+# 		return lookup[n]
+# 	total =0 
+# 	for l in range(n):
+# 		r=n-1-l
+# 		nl = numberOfBinaryTreeTopologies(l)
+# 		nr = numberOfBinaryTreeTopologies(r)
+# 		total+=nl*nr
+# 	lookup[n]=total
+# 	return lookup[n]
+
+
+def numberOfBinaryTreeTopologies(n):
+    # Write your code here.
+	lookup=[1]
+	for m in range(1,n+1):
+		total = 0
+		for l in range(0,m):
+			r= m-1-l
+			nl= lookup[l]
+			nr = lookup[r]
+			total += nl*nr
+		lookup.append(total)
+	return lookup[n]
