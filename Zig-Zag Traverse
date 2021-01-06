@@ -1,0 +1,36 @@
+def zigzagTraverse(array):
+    # Write your code here.
+	height = len(array)-1
+	width = len(array[0])-1
+	res=[]
+	curRow,curCol = 0,0
+	goingDown = True
+	while not isOutOfBound(curRow,curCol,height,width):
+		res.append(array[curRow][curCol])
+		if goingDown:
+			if curRow==height or curCol==0:
+				goingDown=False
+				if curRow==height:
+					curCol+=1
+				else:
+					curRow+=1
+			else:
+				curCol-=1
+				curRow+=1
+		else:
+			if curRow==0 or curCol==width:
+				goingDown=True
+				if curCol==width:
+					curRow+=1
+				else:
+					curCol+=1
+			else:
+				curCol+=1
+				curRow-=1
+	return res
+			
+		
+def isOutOfBound(curRow,curCol,height,width):
+	return curRow<0 or curRow>height or curCol<0 or curCol>width
+
+	
