@@ -1,0 +1,25 @@
+def combineAll(data):
+  flattend_dict = {}
+  for i in range(len(data)):
+    combineAllHelper(data[i],flattend_dict)
+  flattend_dict = sorted(flattend_dict.items(),key =lambda k:k[0])
+  res={}
+  for key,val in flattend_dict:
+    res[key]= val
+  return res
+def combineAllHelper(lookup,flattend_dict):
+  for key,val in lookup.items():
+    if type(val) != dict and key not in flattend_dict:
+      flattend_dict[key]=val
+    elif type(val)== dict and key not in flattend_dict:
+      flattend_dict[key]=val
+    elif type(val)== dict and key in flattend_dict:
+      combineAllHelper(lookup[key],flattend_dict[key])
+
+data = [
+    {"a": 1, "b": 2, "c": {"d": 4}},  # obj a
+    {"c": {"d": 2, "e": 3, "f": 4}, "i": 15},  # obj b
+    {"b": 3, "c": {"e": 2, "g": 5}, "h": 10, "k": {"l": {"m": {"n": 12}}}},  # obj c
+    {"j": 20, "k": {"l": {"m": {"n": 15, "o": 13}, "p": 18}}},  # obj d
+]
+print(combineAll(data))
