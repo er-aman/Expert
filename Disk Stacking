@@ -1,0 +1,22 @@
+def diskStacking(disks):
+	disks.sort(key = lambda disk:disk[2])
+	heights=[disk[2] for disk in disks]
+	sequences =[None for _ in disks]
+	maxHtIdx = 0
+	for i in range(1,len(disks)):
+		curDisk=disks[i]
+		for j in range(0,i):
+			otherDisk = disks[j]
+			if otherDisk[0]<curDisk[0] and otherDisk[1]<curDisk[1] and otherDisk[2]<curDisk[2]:
+				heights[i] = max(heights[i],heights[j]+curDisk[2])
+				sequences[i]=j
+		if heights[i]>=heights[maxHtIdx]:
+			maxHtIdx=i
+	return buildSequence(disks,sequences,maxHtIdx)
+			
+def buildSequence(disks,sequences,maxHtIdx):
+	sequence=[]
+	while maxHtIdx is not None:
+		sequence.append(disks[maxHtIdx])
+		maxHtIdx= sequences[maxHtIdx]
+	return list(reversed(sequence))
