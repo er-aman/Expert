@@ -1,0 +1,8 @@
+import heapq
+def heapSort(array):
+    # Write your code here.
+	heapq.heapify(array)
+	res=[]
+	for _ in range(len(array)):
+		res.append(heapq.heappop(array))
+	return res 
