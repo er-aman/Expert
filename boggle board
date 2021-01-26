@@ -1,48 +1,50 @@
-def boggleBoard(board, words):
-    # Write your code here.
+def search(board, words):
 	trie = Trie()
 	for word in words:
 		trie.add(word)
-	
-	finalWords = set()
-	visited = [[False for letter in row] for row in board]
-	
+	words=set()
+	visited =[[False for i in row] for row in board]
 	for i in range(len(board)):
-		for j in range(len(board[0])):
-			explore(i,j,board, trie.root, visited,finalWords)
-	return list(finalWords)
-def explore(i,j,board,trieNode,visited, finalWords):
+		for j in range(len(board[i])):
+			searchHelper(i,j,trie.root,board,visited,words)
+	return list(words)
+
+def searchHelper(i,j,trie,board,visited,words):
+	directions =[(-1,0),(0,-1),(1,0),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]
 	if visited[i][j]:
-		return 
-	char = board[i][j]
-	if char not in trieNode:
 		return
+	curChar = board[i][j]
+	if curChar not in trie:
+		return 
 	visited[i][j] = True
-	trieNode = trieNode[char]
-	if '*' in trieNode:
-		finalWords.add(trieNode["*"])
-	neighbors = getNeighbors(board,i,j)
-	for n in neighbors:
-		explore(n[0],n[1],board,trieNode,visited,finalWords)
+	trie= trie[curChar]
+	if "*" in trie:
+		words.add(trie["*"])
+	for row,col in directions:
+		new_row= row + i 
+		new_col = col + j
+		if 0<=new_row<len(board) and 0<=new_col<len(board[0]):
+			searchHelper(new_row,new_col,trie,board,visited,words)
 	visited[i][j]=False
-def getNeighbors(board,i,j):
-	res=[]
-	directions = [(1,0),(0,1),(-1,0),(0,-1),(-1,-1),(-1,1),(1,-1),(1,1)]
-	for m,n in directions:
-		if 0<=(i+m)<len(board) and 0<=(j+n)<len(board[0]):
-			res.append([i+m,j+n])
-	return res
+	
+
 class Trie:
 	def __init__(self):
 		self.root = {}
-		self.endSymbol="*"
-	
+		self.endWord="*"
+		
 	def add(self,word):
 		trie= self.root
-		for char in word:
-			if char not in trie:
-				trie[char]={}
-			else:
-				trie= trie[char]
-		trie[self.endSymbol]=word
-	
+		for letter in word:
+			if letter not in trie:
+				trie[letter] = {}
+			trie=trie[letter]
+		trie[self.endWord] = word
+
+board=[
+    ['c', 'y', 'm'],
+    ['r','a','n'],
+    ['l','x','t'],
+  ]
+words = ['my', 'cat', 'ran', 'away']     
+print(search(board,words))    
