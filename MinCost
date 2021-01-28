@@ -1,0 +1,22 @@
+# def minCost(s, cost):
+#   ans = prev = 0 # index of previously retained letter 
+#   for i in range(1, len(s)): 
+#       if s[prev] != s[i]: prev = i
+#       else: 
+#           ans += min(cost[prev], cost[i])
+#           if cost[prev] < cost[i]: prev = i
+#   return ans
+  
+# print(minCost("ababa",[10,5,10,5,10]))
+
+
+# def abefore(s):
+#   after=False
+#   for i in range(len(s)):
+#     if s[i]=='b':
+#       after=True
+#     if s[i]=='a' and after:
+#       return False
+#   return True
+  
+# print(abefore('b'))
