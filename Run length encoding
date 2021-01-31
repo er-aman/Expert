@@ -17,3 +17,21 @@ def runLengthEncoding(string):
 			count+=1
 		i+=1
 	return res+str(count)+string[i-1]
+
+
+def runLengthEncoding(string):
+    # Write your code here.
+	res=""
+	i=1
+	counter=1
+	while i<len(string):
+		if string[i-1]==string[i] and counter<9:
+			counter+=1
+		elif counter>9:
+			res+=(str(9) + string[i])
+			counter=1
+		else:
+			res+=(str(counter) + string[i-1])
+			counter=1
+		i+=1
+	return res+str(counter)+string[i-1]
