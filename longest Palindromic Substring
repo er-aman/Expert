@@ -1,0 +1,90 @@
+"""
+0 1 2 3 4 5 6 7 8 9 
+a b a x y z z y x f
+lookup = {a:2, b:1, x:8,z:6, y:7,f:9 }
+
+iterate over my string => a  and then i check this a in my lookup 
+if it is get the last index => 2 
+if cur index and last index is not same = > i'll use while loop
+helper function(start,end):=> 
+	while start<end:
+		if string[start]!= string[end]:
+			return False 
+		else:
+			start+=1
+			end-=1
+	return True
+	
+maxLengthSoFar =  float('inf')
+if helperfunction(start,end):
+curLength = start - end 
+if curLenght> maxLengthSofAr:
+ maxLengthSofAr= curLength 
+ res = string[start:end+1]
+after traversing the whole string 
+return res
+
+start =0 and end = 2
+curLength = 2 
+res = aba 
+another condition if string[i] in lookup: and i === lookup[i]: continue
+
+"""
+
+
+def longestPalindromicSubstring(string):
+    # Write your code here.
+	if len(string)==1:
+		return string
+    lookup = {char:indx for indx,char in enumerate(string)}
+	print(lookup)
+	maxLengthSoFar = float('-inf')
+	res=""
+	for i in range(len(string)):
+		curChar = string[i]
+		print("curChar",curChar)
+		if curChar in lookup and lookup[curChar] != i:
+			start=i
+			print("start",start)
+			end = lookup[curChar]
+			print("end",end)
+			if isPalin(string,start,end):
+				curLength = end - start+1
+				if curLength> maxLengthSoFar:
+					maxLengthSoFar= curLength
+					res =string[start:end+1]
+					print("res",res)
+	return res
+def isPalin(string,start,end):
+	left = start
+	right =end 
+	while left<right:
+		print("isPalin",(string[left],string[right]))
+		if string[left]!=string[right]:
+			return False
+		else:
+			left+=1
+			right-=1
+	return True
+	
+
+One case failed 
+
+
+def longestPalindromicSubstring(string):
+    # Write your code here.
+    curLongest = [0,1]
+	for i in range(1,len(string)):
+		odd = getLongestPalindrome(string,i-1,i+1)
+		even = getLongestPalindrome(string,i-1,i)
+		longest = max(odd,even,key= lambda x:x[1]- x[0])
+		curLongest = max(longest,curLongest,key= lambda x:x[1]- x[0])
+	return string[curLongest[0]:curLongest[1]]
+
+def getLongestPalindrome(string,leftIdx,rightIdx):
+	while leftIdx>=0 and rightIdx<len(string):
+		if string[leftIdx]!=string[rightIdx]:
+			break
+		leftIdx-=1
+		rightIdx+=1
+	return [leftIdx+1,rightIdx]
