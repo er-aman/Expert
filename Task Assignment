@@ -1,0 +1,23 @@
+def taskAssignment(k, tasks):
+    # Write your code here
+	lookup = getTaskIndexes(tasks)
+	sortedArr = sorted(tasks)
+	res=[]
+	for i in range(k):
+		task1Duration = sortedArr[i]
+		idxsWithTask1 = lookup[task1Duration]
+		indx1 = idxsWithTask1.pop()
+		
+		task2Duration = sortedArr[len(sortedArr)-1-i]
+		idxsWithTask2 = lookup[task2Duration]
+		indx2 = idxsWithTask2.pop()
+		res.append([indx1, indx2])
+	return res 
+def getTaskIndexes(tasks):
+	lookup={}
+	for indx,val in enumerate(tasks):
+		if val in lookup:
+			lookup[val].append(indx)
+		else:
+			lookup[val]=[indx]
+	return lookup
