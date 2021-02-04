@@ -1,5 +1,5 @@
 # bricks and walls
-# time complexity is O(n) and space O(m) m being width of wall.
+# time complexity is O(n) and space O(m) m being width of wall..
 import collections
 import unittest
 def getMinimumBricks(walls):
