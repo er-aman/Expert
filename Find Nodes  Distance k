@@ -1,0 +1,48 @@
+# This is an input class. Do not edit.
+class BinaryTree:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def findNodesDistanceK(tree, target, k):
+    # Write your code here.
+	nodeToParent ={}
+	getnodeToParent(tree,nodeToParent,parent=None)
+	targetNode = getTargetNode(tree,target,nodeToParent)
+	return bfs(k,targetNode,nodeToParent)
+
+def bfs(k,targetNode,nodeToParent):
+	queue =[(targetNode,0)]
+	seen ={targetNode.value}
+	while queue:
+		curNode, dis = queue.pop(0)
+		if dis ==k:
+			nodesToReturn =[node.value for node,_ in queue]
+			nodesToReturn.append(curNode.value)
+			return nodesToReturn
+		nodeToAdd = [curNode.left,curNode.right,nodeToParent[curNode.value]]
+		for node in nodeToAdd:
+			if node is None:
+				continue
+			if node.value in seen:
+				continue
+			seen.add(node.value)
+			queue.append((node,dis+1))
+	return []
+	
+def getTargetNode(tree,target,nodeToParent):
+	if target == tree.value:
+		return tree
+	node= nodeToParent[target]
+	if node.left and node.left.value==target:
+		return node.left
+	return node.right
+
+def getnodeToParent(node,nodeToParent,parent):
+	if node is not None:
+		nodeToParent[node.value]=parent
+		getnodeToParent(node.left,nodeToParent,node)
+		getnodeToParent(node.right,nodeToParent,node)
+	
