@@ -1,5 +1,5 @@
 Function takes in binary search tree and target integer value and returns the closest value to that target value contained in the BST.
-
+Two approaches 
 1st Approach is recursive
 I need to keep the count of the abs difference of target and the value
 ==> variable closest
