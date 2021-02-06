@@ -1,0 +1,46 @@
+def patternMatcher(pattern, string):
+    # Write your code here.
+	if len(pattern)> len(string):
+		return []
+	
+	newPattern = getNewPattern(pattern)
+	didswap = pattern[0]!= newPattern[0]
+	count = {'x':0,'y':0}
+	firstyPos = getfirstyPosAndUpdateCount(newPattern, count)
+	if count['y']!=0:
+		for xlen in range(1,len(string)):
+			lenofX = xlen
+			ylen = (len(string) - count['x']*lenofX)/count['y']
+			if ylen<=0 or ylen%1!=0:
+				continue
+			ylen = int(ylen)
+			yindx = firstyPos * lenofX
+			x = string[:lenofX]
+			y = string[yindx:yindx+ylen]
+			potentialString = map(lambda char: x if char=="x" else y,newPattern)
+			if string == "".join(potentialString):
+				return [x,y] if not didswap else [y,x]
+	else:
+		lenOfX = len(string)/count['x']
+		if lenOfX%1==0:
+			lenOfX = int(lenOfX)
+			x = string[:lenOfX]
+			potentialString = map(lambda char: x ,newPattern)
+			if string == "".join(potentialString):
+				return [x,""] if not didswap else ["",x]
+	return []
+	
+def getfirstyPosAndUpdateCount(newPattern, count):
+	firstYIdx=None
+	for idx,char in enumerate(newPattern):
+		count[char]+=1
+		if char=='y' and firstYIdx == None:
+			firstYIdx=idx
+	return firstYIdx
+def getNewPattern(pattern):
+	patternList = list(pattern)
+	if patternList[0] == 'x':
+		return patternList
+	else:
+		return list(map(lambda char: 'x' if char=='y' else 'y', patternList))
+	
