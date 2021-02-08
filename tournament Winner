@@ -1,0 +1,22 @@
+def tournamentWinner(competitions, results):
+    # Write your code here.
+	scoreKeeper={}
+    for i in range(len(competitions)):
+		if results[i]==0:
+			awayTeam = competitions[i][1]
+			upadeScoreKeeper(awayTeam,scoreKeeper)
+		else:
+			homeTeam = competitions[i][0]
+			upadeScoreKeeper(homeTeam,scoreKeeper)
+	maxScore=float('-inf')
+	maxScoreTeam = None
+	for key,val in scoreKeeper.items():
+		if val>maxScore:
+			maxScore=val 
+			maxScoreTeam=key
+	return maxScoreTeam
+def upadeScoreKeeper(team,scoreKeeper):
+	if team in scoreKeeper:
+		scoreKeeper[team]+=3
+	else:
+		scoreKeeper[team]=3
