@@ -1,0 +1,20 @@
+def fourNumberSum(array, targetSum):
+    # Write your code here.
+    quadPairs =[]
+	lookup={}
+	for i in range(1,len(array)-1):
+		for j in range(i+1,len(array)):
+			curSum = array[i]+array[j]
+			potential = targetSum - curSum
+			if potential in lookup:
+				for pair in lookup[potential]:
+					quadPairs.append([array[i],array[j]]+pair)
+		
+		for k in range(0,i):
+			curSum = array[i]+array[k]
+			if curSum not in lookup:
+				lookup[curSum]= [[array[i],array[k]]]
+			else:
+				lookup[curSum].append([array[i],array[k]])
+				
+	return quadPairs
