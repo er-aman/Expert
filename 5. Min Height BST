@@ -10,4 +10,4 @@ def minHeightBstHelper(array,startIndex, endIndex):
 	bst.right = minHeightBstHelper(array,midInd+1, endIndex)
 	return bst
 
-Time complexity is O(n) space complexity is O(n)
+Time complexity is O(n), space complexity is O(n)
