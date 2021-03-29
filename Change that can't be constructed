@@ -1,0 +1,26 @@
+
+
+array with coins val that you have and return the min amount of change that can't be constructed
+
+def nonConstructibleChange(coins):
+	coins.sort() 
+	currentChange=0
+	for coin in coins:
+		if coin> currentChange+1:
+			return currentChange+1
+		else:
+			currentChange+=coin
+	return currentChange+1
+  
+  
+import unittest
+
+class Test(unittest.TestCase):
+  def test_1(self):
+    input = [1,1,1,1,1]
+    expected = 6
+    actual =  nonConstructibleChange(input)
+    self.assertEqual(actual,expected)
+    
+   
+    
