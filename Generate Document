@@ -1,0 +1,12 @@
+
+import collections
+def generateDocument(characters, document):
+    # Write your code here
+	charCounter = collections.Counter(characters)
+	docCounter = collections.Counter(document)
+	for key in docCounter:
+		if key not in charCounter or charCounter[key]< docCounter[key]:
+			return False
+    return True
+
+
