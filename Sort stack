@@ -1,0 +1,20 @@
+sort the stack without creating an auxilary stack.
+
+def sortStack(stack):
+    # Write your code here.
+	if len(stack)==0:
+		return stack
+	
+	topElement = stack.pop()
+	sortStack(stack)
+	insert(stack,topElement)
+    return stack
+
+def insert(stack,value):
+	if len(stack)==0 or stack[len(stack)-1]<=value:
+		stack.append(value)
+		return 
+
+	topElement = stack.pop()
+	insert(stack,value)
+	stack.append(topElement)
